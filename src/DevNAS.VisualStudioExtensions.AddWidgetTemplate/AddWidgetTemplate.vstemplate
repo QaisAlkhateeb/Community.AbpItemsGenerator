@@ -15,11 +15,11 @@
 				<Assembly>System</Assembly>
 			</Reference>
 		</References>
-		<ProjectItem TargetFileName="$safeitemname$WidgetViewComponent.cs" ReplaceParameters="true">WidgetViewComponent.cs</ProjectItem>
-		<ProjectItem TargetFileName="$safeitemname$WidgetViewComponent.cshtml" ReplaceParameters="true">WidgetViewComponent.cshtml</ProjectItem>
-		<ProjectItem TargetFileName="$safeitemname$WidgetController.cs" ReplaceParameters="true">WidgetController.cs</ProjectItem>
-		<ProjectItem TargetFileName="$safeitemname$Widget.js" ReplaceParameters="true">Widget.js</ProjectItem>
-		<ProjectItem TargetFileName="$safeitemname$Widget.css" ReplaceParameters="true">Widget.css</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$ViewComponent.cs" ReplaceParameters="true">WidgetViewComponent.cs</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$ViewComponent.cshtml" ReplaceParameters="true">WidgetViewComponent.cshtml</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$Controller.cs" ReplaceParameters="true">WidgetController.cs</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$.js" ReplaceParameters="true">Widget.js</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$.css" ReplaceParameters="true">Widget.css</ProjectItem>
 
 	</TemplateContent>
 	<WizardExtension>

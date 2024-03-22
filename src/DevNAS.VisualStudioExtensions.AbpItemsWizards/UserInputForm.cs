@@ -3,17 +3,14 @@ using System.Windows.Forms;
 
 namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
 {
-    public partial class UserInputForm : Form
+    internal partial class UserInputForm : Form
     {
-        private string _widgetName;
+        #region Props and Fields
+        private readonly ItemContext _itemContext;
         private TextBox widgetNameTxt;
         private Panel panel1;
         private Label label1;
-        private Button nextBtn;
-        private bool _generateScriptBundle;
-        private bool _generateStyleBundle;
-        private string _refreshUrl;
-        private string _viewPath;
+        private Button finishBtn;
         private CheckBox generateScriptBundleChk;
         private CheckBox generateStyleBundleChk;
         private TextBox refreshUrlTxt;
@@ -24,7 +21,74 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
         private TextBox debugTxt;
         private Label viewPathLbl;
 
+        private bool _generateScriptBundle;
+        private bool _generateStyleBundle;
+        //private string _refreshUrl;
+        //private string _viewPath;
+        //private string _widgetName;
 
+        public string WidgetName
+        {
+            get
+            {
+                return this.widgetNameTxt.Text;
+            }
+        }
+        public bool GenerateScriptBundle
+        {
+            get { return _generateScriptBundle; }
+        }
+
+        public bool GenerateStyleBundle
+        {
+            get { return _generateStyleBundle; }
+        }
+
+        public string RefreshUrl
+        {
+            get { return refreshUrlTxt.Text; }
+        }
+
+        public string ViewPath
+        {
+            get { return viewPathTxt.Text; }
+        }
+
+        public string ViewDirectoryPath
+        {
+            get 
+            {
+                return viewPathTxt.Text.Substring(0, ViewPath.LastIndexOf("/")); 
+            }
+        }
+
+        public string DebugTxt
+        {
+            get { return this.debugTxt.Text; }
+        }
+        #endregion
+
+        public UserInputForm(ItemContext itemContext)
+            : this()
+        {
+            _itemContext = itemContext;
+            this.widgetNameTxt.Text = itemContext.SafeItemName;
+            this.debugTxt.Text = String.Join("<>", new string[]
+            {
+                nameof(itemContext.RootNamespace),
+                itemContext.RootNamespace,
+                nameof(itemContext.RootName),
+                itemContext.RootName,
+                nameof(itemContext.DefaultNamespace),
+                itemContext.DefaultNamespace,
+                nameof(itemContext.SafeItemName),
+                itemContext.SafeItemName,
+                nameof(itemContext.RelativeNamespace),
+                itemContext.RelativeNamespace,
+                nameof(itemContext.SolutionDirectory),
+                itemContext.SolutionDirectory
+            });
+        }
 
         public UserInputForm()
         {
@@ -33,73 +97,13 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
             InitializeComponent();
         }
 
-        public string WidgetName
-        {
-            get
-            {
-                return _widgetName;
-            }
-            set
-            {
-                this.widgetNameTxt.Text = value;
-                _widgetName = value;
-            }
-        }
-        public bool GenerateScriptBundle
-        {
-            get { return _generateScriptBundle; }
-            set
-            {
-                _generateScriptBundle = value;
-                this.generateScriptBundleChk.Checked = value;
-            }
-        }
-
-        public bool GenerateStyleBundle
-        {
-            get { return _generateStyleBundle; }
-            set
-            {
-                _generateStyleBundle = value;
-                this.generateStyleBundleChk.Checked = value;
-            }
-        }
-
-        public string RefreshUrl
-        {
-            get { return _refreshUrl; }
-            set
-            {
-                _refreshUrl = value;
-                this.refreshUrlTxt.Text = value;
-            }
-        }
-
-        public string ViewPath
-        {
-            get { return _viewPath; }
-            set
-            {
-                _viewPath = value;
-                this.viewPathTxt.Text = value;
-            }
-        }
-
-        public string DebugTxt
-        {
-            get { return this.debugTxt.Text; }
-            set
-            {
-                this.debugTxt.Text = value;
-            }
-        }
-
-
+        #region Design 
         private void InitializeComponent()
         {
             this.widgetNameTxt = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.nextBtn = new System.Windows.Forms.Button();
+            this.debugTxt = new System.Windows.Forms.TextBox();
+            this.finishBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.generateScriptBundleChk = new System.Windows.Forms.CheckBox();
             this.generateScriptBundleLbl = new System.Windows.Forms.Label();
@@ -109,7 +113,6 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
             this.refreshUrlLbl = new System.Windows.Forms.Label();
             this.viewPathTxt = new System.Windows.Forms.TextBox();
             this.viewPathLbl = new System.Windows.Forms.Label();
-            this.debugTxt = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,11 +122,12 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
             this.widgetNameTxt.Name = "widgetNameTxt";
             this.widgetNameTxt.Size = new System.Drawing.Size(362, 20);
             this.widgetNameTxt.TabIndex = 0;
+            this.widgetNameTxt.TextChanged += new System.EventHandler(this.widgetNameTxt_TextChanged);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.debugTxt);
-            this.panel1.Controls.Add(this.nextBtn);
+            this.panel1.Controls.Add(this.finishBtn);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.widgetNameTxt);
             this.panel1.Controls.Add(this.generateScriptBundleChk);
@@ -140,15 +144,23 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
             this.panel1.Size = new System.Drawing.Size(389, 253);
             this.panel1.TabIndex = 1;
             // 
-            // nextBtn
+            // debugTxt
             // 
-            this.nextBtn.Location = new System.Drawing.Point(305, 221);
-            this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(75, 23);
-            this.nextBtn.TabIndex = 2;
-            this.nextBtn.Text = "Next";
-            this.nextBtn.UseVisualStyleBackColor = true;
-            this.nextBtn.Click += new System.EventHandler(this.nextBtn_Click);
+            this.debugTxt.Location = new System.Drawing.Point(18, 223);
+            this.debugTxt.Name = "debugTxt";
+            this.debugTxt.ReadOnly = true;
+            this.debugTxt.Size = new System.Drawing.Size(167, 20);
+            this.debugTxt.TabIndex = 8;
+            // 
+            // finishBtn
+            // 
+            this.finishBtn.Location = new System.Drawing.Point(305, 221);
+            this.finishBtn.Name = "finishBtn";
+            this.finishBtn.Size = new System.Drawing.Size(75, 23);
+            this.finishBtn.TabIndex = 2;
+            this.finishBtn.Text = "Finish";
+            this.finishBtn.UseVisualStyleBackColor = true;
+            this.finishBtn.Click += new System.EventHandler(this.finishBtn_Click);
             // 
             // label1
             // 
@@ -219,14 +231,6 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
             this.viewPathLbl.TabIndex = 7;
             this.viewPathLbl.Text = "View Path";
             // 
-            // debugTxt
-            // 
-            this.debugTxt.Location = new System.Drawing.Point(18, 223);
-            this.debugTxt.Name = "debugTxt";
-            this.debugTxt.ReadOnly = true;
-            this.debugTxt.Size = new System.Drawing.Size(167, 20);
-            this.debugTxt.TabIndex = 8;
-            // 
             // UserInputForm
             // 
             this.ClientSize = new System.Drawing.Size(389, 253);
@@ -237,12 +241,32 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
             this.ResumeLayout(false);
 
         }
+        #endregion
+        
 
-        private void nextBtn_Click(object sender, EventArgs e)
+        private void WidgetNameChanged(string newName)
         {
-            _widgetName = widgetNameTxt.Text;
+            UpdateViewPath(newName);
+            UpdateRefreshUrl(newName);
+        }
+        private void UpdateViewPath(string widgetName)
+        {
+            this.viewPathTxt.Text = $"{_itemContext.RelarivePath}/{widgetName}ViewComponent.cshtml";
+        }
+        private void UpdateRefreshUrl(string widgetName)
+        {
+            this.refreshUrlTxt.Text = $"{_itemContext.RelarivePath}/{widgetName}";
+        }
+
+        private void finishBtn_Click(object sender, EventArgs e)
+        {
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void widgetNameTxt_TextChanged(object sender, EventArgs e)
+        {
+            WidgetNameChanged(this.widgetNameTxt.Text);
         }
     }
 }

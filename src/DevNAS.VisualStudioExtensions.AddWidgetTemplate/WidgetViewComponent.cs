@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
-using Volo.Abp.AspNetCore.Mvc.UI.Packages.ChartJs;
 using Volo.Abp.AspNetCore.Mvc.UI.Widgets;
-using Volo.Abp.Modularity;
 
 
 namespace $rootnamespace$
@@ -19,7 +16,7 @@ namespace $rootnamespace$
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("$ViewPath$/$WidgetName$ViewComponent.cshtml");
+            return View("$ViewPath$");
         }
     }
     
@@ -28,14 +25,14 @@ namespace $rootnamespace$
     {
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-            context.Files.Add("$ViewPath$/$WidgetName$.js");
+            context.Files.Add("$ViewRootPath$/$WidgetName$.js");
         }
     }
     public class $WidgetName$StyleContributor : BundleContributor
     {
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-            context.Files.Add("$ViewPath$/$WidgetName$.css");
+            context.Files.Add("$ViewRootPath$/$WidgetName$.css");
         }
     }
 
