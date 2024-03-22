@@ -10,7 +10,10 @@ using Volo.Abp.Modularity;
 
 namespace $rootnamespace$
 {
-    [Widget(RefreshUrl = "$RefreshUrl$",  ScriptTypes = new[] { typeof($WidgetName$ScriptContributor) }, StyleTypes = new[] { typeof( $WidgetName$StyleContributor) })]
+    [Widget(RefreshUrl = "$RefreshUrl$",
+        ScriptTypes = new[] { typeof($WidgetName$ScriptContributor) },
+        StyleTypes = new[] { typeof( $WidgetName$StyleContributor) }
+    )]
     [ViewComponent(Name = "$WidgetName$")]
     public class $safeitemname$ : AbpViewComponent
     {
@@ -25,14 +28,14 @@ namespace $rootnamespace$
     {
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-            context.Files.Add("$ViewPath$/$safeitemnamee$.js");
+            context.Files.Add("$ViewPath$/$WidgetName$.js");
         }
     }
     public class $WidgetName$StyleContributor : BundleContributor
     {
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-            context.Files.Add("$ViewPath$/$safeitemname$.css");
+            context.Files.Add("$ViewPath$/$WidgetName$.css");
         }
     }
 
