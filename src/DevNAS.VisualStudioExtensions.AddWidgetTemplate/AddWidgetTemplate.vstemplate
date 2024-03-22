@@ -1,0 +1,29 @@
+﻿<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+	<TemplateData>
+		<Name>Abp.io Widget</Name>
+		<Description>Adds a new ABP.io widget with ViewComponent, Controller, and related files.</Description>
+		<Icon>AddWidgetTemplate.ico</Icon>
+		<TemplateID>ec9d2ee4-a072-4c86-a857-6039ba4cb829</TemplateID>
+		<ProjectType>CSharp</ProjectType>
+		<TemplateGroupID>AspNetCore</TemplateGroupID>
+		<NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+		<DefaultName>MyWidget</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+		</References>
+		<ProjectItem TargetFileName="$safeitemname$WidgetViewComponent.cs" ReplaceParameters="true">WidgetViewComponent.cs</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$WidgetViewComponent.cshtml" ReplaceParameters="true">WidgetViewComponent.cshtml</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$WidgetController.cs" ReplaceParameters="true">WidgetController.cs</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$Widget.js" ReplaceParameters="true">Widget.js</ProjectItem>
+		<ProjectItem TargetFileName="$safeitemname$Widget.css" ReplaceParameters="true">Widget.css</ProjectItem>
+
+	</TemplateContent>
+	<WizardExtension>
+		<Assembly>DevNAS.VisualStudioExtensions.AbpItemsWizards, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7e0e1773338972b5</Assembly>
+		<FullClassName>DevNAS.VisualStudioExtensions.AbpItemsWizards.AbpWidgetWizard</FullClassName>
+	</WizardExtension>
+</VSTemplate>
