@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevNAS.VisualStudioExtensio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevNAS.VisualStudioExtensions.AbpItemsWizards", "DevNAS.VisualStudioExtensions.AbpItemsWizards\DevNAS.VisualStudioExtensions.AbpItemsWizards.csproj", "{FCA215C9-21B8-45D0-988D-19DABED33D1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{FCA215C9-21B8-45D0-988D-19DABED33D1C}.Release|arm64.Build.0 = Release|Any CPU
 		{FCA215C9-21B8-45D0-988D-19DABED33D1C}.Release|x86.ActiveCfg = Release|Any CPU
 		{FCA215C9-21B8-45D0-988D-19DABED33D1C}.Release|x86.Build.0 = Release|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Debug|arm64.Build.0 = Debug|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Debug|x86.Build.0 = Debug|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Release|arm64.ActiveCfg = Release|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Release|arm64.Build.0 = Release|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Release|x86.ActiveCfg = Release|Any CPU
+		{A506FBF7-B3D1-41A1-B89E-62B4FBB39E10}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

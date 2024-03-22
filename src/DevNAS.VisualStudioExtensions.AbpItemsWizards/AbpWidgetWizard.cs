@@ -8,8 +8,6 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
 {
     public class AbpWidgetWizard : IWizard
     {
-        private UserInputForm inputForm;
-
         // This method is called before opening any item that
         // has the OpenInEditor attribute.
         public void BeforeOpeningFile(ProjectItem projectItem)
@@ -38,43 +36,38 @@ namespace DevNAS.VisualStudioExtensions.AbpItemsWizards
         {
             try
             {
-                // Display a form to the user. The form collects
-                string defaultNamespace = replacementsDictionary["$defaultnamespace$"];
-                string rootNamespace = replacementsDictionary["$rootnamespace$"];
-                string relativeNamespace = rootNamespace.Replace($"{defaultNamespace}.", "");
-                string relarivePath = "/" + relativeNamespace.Replace(".", "/");
-                string safeItemName = replacementsDictionary["$safeitemname$"];
-
-                // set initial values
-                string all = String.Join("<>", new string[] {
-                    replacementsDictionary["$solutiondirectory$"],
-                    replacementsDictionary["$rootname$"],
-                    replacementsDictionary["$safeitemname$"],
-                    replacementsDictionary["$rootnamespace$"],
-                    replacementsDictionary["$defaultnamespace$"]
-                });
-
-                inputForm = new UserInputForm();
-                inputForm.WidgetName = replacementsDictionary["$safeitemname$"];
-                inputForm.RefreshUrl = $"{relarivePath}/{safeItemName}";
-                inputForm.ViewPath = $"{relarivePath}/{safeItemName}ViewComponent.cshtml";
-                inputForm.DebugTxt = all;
-                // handle user input
-                if (inputForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    replacementsDictionary["$safeitemname$"] = inputForm.WidgetName;
-                    replacementsDictionary["$WidgetName$"] = inputForm.WidgetName;
-                    replacementsDictionary["$RefreshUrl$"] = inputForm.RefreshUrl;
-                    replacementsDictionary["$ViewPath$"] = inputForm.ViewPath;
-                }
-                else
-                {
-                    throw new WizardCancelledException("User cancelled the wizard.");
-                }
+                ShowUserInputForm(replacementsDictionary);
+            }
+            catch (WizardCancelledException)
+            {
+                // Throw a new exception to signal that the wizard has been cancelled.
+                // This will prevent the item from being added to the project.
+                throw new WizardBackoutException("User cancelled the wizard.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void ShowUserInputForm(Dictionary<string, string> replacementsDictionary)
+        {
+            // Init Item Context and UserFormInput
+            var itemContext = ItemContext.FromReplacementsDictionary(replacementsDictionary);
+            var inputForm = new UserInputForm(itemContext);
+
+            // show & handle user input
+            if (inputForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                replacementsDictionary["$safeitemname$"] = inputForm.WidgetName;
+                replacementsDictionary["$WidgetName$"] = inputForm.WidgetName;
+                replacementsDictionary["$RefreshUrl$"] = inputForm.RefreshUrl;
+                replacementsDictionary["$ViewRootPath$"] = inputForm.ViewDirectoryPath;
+                replacementsDictionary["$ViewPath$"] = inputForm.ViewPath;
+            }
+            else
+            {
+                throw new WizardCancelledException("User cancelled the wizard.");
             }
         }
 

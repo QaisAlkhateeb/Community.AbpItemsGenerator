@@ -1,6 +1,5 @@
-﻿(function ($) {
-    "use strict";
+﻿$(async function () {
 
     // $WidgetName$ widget JavaScript
 
-})(jQuery);
+});
