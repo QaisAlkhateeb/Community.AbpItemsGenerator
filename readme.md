@@ -21,10 +21,13 @@ The ABP.io Generator is a Visual Studio extension that simplifies the process of
 1. Open your ABP.io project in Visual Studio.
 2. Right-click on the project or folder where you want to add the widget.
 3. Select `Add` > `New Item...`.
+![alt text](image.png)
 4. In the `Add New Item` dialog, navigate to the `ASP.NET Core` category and select `Abp.io Widget Generator`.
+![alt text](image-1.png)
 5. Enter a name for your widget and click `Add`.
+![alt text](image-2.png)
 6. The extension will generate the necessary files for your new widget, including the ViewComponent, Controller, CSS, and JavaScript files.
-
+![alt text](image-3.png)
 ## extensions development
 
 For more information on extension development, see the [Extension Development Guide](extension_development.md).
